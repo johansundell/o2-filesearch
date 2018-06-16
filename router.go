@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -34,7 +33,8 @@ func NewRouter() *mux.Router {
 func wwwLogger(inner http.Handler, name string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if settings.Debug {
-			log.Println(name, r.RequestURI, r.RemoteAddr, r.Method)
+			//log.Println(name, r.RequestURI, r.RemoteAddr, r.Method)
+			logger.Info(name, r.RequestURI, r.RemoteAddr, r.Method)
 		}
 		w.Header().Set("X-Version", appVersionStr)
 		inner.ServeHTTP(w, r)

@@ -32,6 +32,7 @@ var settings appSettings
 type appSettings struct {
 	Debug bool   `json:"debug"`
 	Port  string `json:"port"`
+	Dir   string `json:"dir"`
 }
 
 func main() {
