@@ -17,8 +17,9 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	pattern := vars["id"]
 	files := make([]string, 0)
-	_ = files
-	logger.Info(settings.Dir)
+	//_ = files
+	//logger.Info(settings.Dir)
+	// TODO: Kolla på ioutil.ReadDir istället
 	err := filepath.Walk(settings.Dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			logger.Error(err)
@@ -34,7 +35,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 				//logger.Info(f)
 				files = append(files, f...)
 			}
-
 		}
 		return nil
 	})
