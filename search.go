@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"path/filepath"
 
 	"github.com/gorilla/mux"
+	"github.com/mattn/go-zglob"
 )
 
 func init() {
@@ -16,28 +16,8 @@ func init() {
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	pattern := vars["id"]
-	files := make([]string, 0)
-	//_ = files
-	//logger.Info(settings.Dir)
-	// TODO: Kolla på ioutil.ReadDir istället
-	err := filepath.Walk(settings.Dir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			logger.Error(err)
-		}
-		if info.IsDir() {
-			//files, err = filepath.Glob(path + "*(FM ID " + pattern + ")*.pdf")
-			f, err := filepath.Glob(path + "*" + pattern + "*.*")
 
-			if err != nil {
-				logger.Error(err)
-			}
-			if len(f) > 0 {
-				//logger.Info(f)
-				files = append(files, f...)
-			}
-		}
-		return nil
-	})
+	files, err := zglob.Glob(settings.Dir + "**/*" + pattern + "*.*")
 	if err != nil {
 		logger.Error(err)
 	}
