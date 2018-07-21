@@ -14,6 +14,8 @@ import (
 	"github.com/kardianos/service"
 )
 
+
+
 const appVersionStr = "v1.0"
 const filenameSettings = "settings.json"
 
